@@ -4,6 +4,7 @@
 
 #  winning moves
 wins ={'A': 'Z', 'C': 'Y', 'B': 'X', 'X': 'C', 'Z':'B', 'Y': 'A' }
+loses = {v: k for k, v in wins.items()}
 draw = {'A': 'X', "B": "Y", 'C': 'Z'}
 
 scores = {'A': 1, 'X':1, 'B': 2, 'Y': 2, 'C': 3, 'Z': 3 }
@@ -19,18 +20,25 @@ def read_stategy_guide(filename):
     return strategy
 
 def play_round(pair):
+    score = 0
     player1 = pair[0]
-    player2 = pair[1]
+    outcome = pair[1]
+    player2 = None
 
-    score = scores[player2]
-
-    if draw[player1] == player2:
+    if outcome == 'X':
+        # I lose, player1 wins
+        player2 = wins[player1]
+    elif outcome == 'Y':
         # draw
         score += 3
-    elif wins[player2]  == player1:
-        # I win
+        player2 = draw[player1]
+    else:
+        # I win, player1 loses
         score += 6
-    
+        player2 = loses[player1]
+
+    # print(f"My choice ({player2}) score:  {scores[player2]}")
+    score += scores[player2]
     return score
 
 if __name__ == '__main__':
