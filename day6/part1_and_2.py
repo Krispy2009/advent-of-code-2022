@@ -1,4 +1,5 @@
-MARK_LENGTH = 4
+# MARK_LENGTH = 4
+MARK_LENGTH = 14
 
 def read_input(filename):
     lines = []
